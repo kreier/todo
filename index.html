@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kreier ToDo — Life Organization & Statistics</title>
+  <meta name="description" content="Organize recurring tasks, bills, projects, emails, and calming productivity statistics with Google Drive integration.">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Chart.js for calming statistics charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Google Identity Services (GIS) Client Library -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-icon">✓</div>
+        <div class="brand-titles">
+          <h1>Kreier ToDo</h1>
+          <span class="brand-subtitle">Organize, Calm & Automate • Est. 2018</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span id="sync-badge" class="status-badge status-local">💾 Local Mode</span>
+
+        <!-- Google Auth Section -->
+        <div id="auth-section">
+          <button class="btn btn-google" onclick="Auth.signIn()">
+            <svg class="google-logo" viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign in with Google</span>
+          </button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="btn btn-secondary btn-icon-only" onclick="App.toggleTheme()" title="Toggle Dark/Light Mode">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+
+        <!-- Settings Button -->
+        <button class="btn btn-secondary btn-icon-only" onclick="App.openSettingsModal()" title="Settings & Drive Configuration">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="nav-tabs-wrapper">
+    <div class="nav-tabs-container">
+      <button class="nav-tab active" data-tab="stats">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Public Statistics</span>
+      </button>
+
+      <button class="nav-tab" data-tab="recurring">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Recurring Checks (Rent & Bills)</span>
+      </button>
+
+      <button class="nav-tab" data-tab="tasks">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        <span>Active Tasks & Emails</span>
+      </button>
+
+      <button class="nav-tab" data-tab="drive">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        <span>Google Drive Documents</span>
+      </button>
+
+      <button class="nav-tab" data-tab="notes">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        <span>Notes Archive (since 2018)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- Auth / Local Warning Banner -->
+    <div id="auth-warning-banner" class="info-banner">
+      <div>
+        <strong>Google Login Portal:</strong> Sign in to connect to your private Google Drive subfolder for sensitive bills, rent slips, and private notes. You can also preview all features in local mode!
+      </div>
+      <button class="btn btn-sm btn-primary" onclick="Auth.signIn()">Connect Google Account</button>
+    </div>
+
+    <!-- ====================================================================
+         VIEW 1: PUBLIC STATISTICS
+         ==================================================================== -->
+    <div id="view-stats" class="view-tab-content active">
+      
+      <!-- KPI Top Summary -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Tasks Finished</div>
+          <div class="kpi-value" id="kpi-total-tasks">2,393</div>
+          <div class="kpi-sub">Since 2018-03-07</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Avg. Tasks / Month</div>
+          <div class="kpi-value" id="kpi-avg-tasks">22.8</div>
+          <div class="kpi-sub">Continuous velocity</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">GitHub Repositories</div>
+          <div class="kpi-value" id="kpi-github-repos">215</div>
+          <div class="kpi-sub">Public codebase projects</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Emails Answered</div>
+          <div class="kpi-value" id="kpi-emails-answered">58</div>
+          <div class="kpi-sub">This month</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Open Emails Waiting</div>
+          <div class="kpi-value" id="kpi-open-emails">3</div>
+          <div class="kpi-sub">Active queue</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Projects Needing Update</div>
+          <div class="kpi-value" id="kpi-projects-update">2</div>
+          <div class="kpi-sub">Maintenance flags</div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="two-col-grid">
+        <div class="section-card">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Monthly Tasks Completed History
+              </h2>
+              <span class="section-subtitle" id="stats-updated-time">Aggregated from historical records and GitHub actions</span>
+            </div>
+            <div class="btn-filter-group">
+              <button class="btn-filter active" onclick="Stats.setTimeFilter('all'); this.parentElement.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active')); this.classList.add('active');">All Time</button>
+              <button class="btn-filter" onclick="Stats.setTimeFilter('3y'); this.parentElement.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active')); this.classList.add('active');">3 Years</button>
+              <button class="btn-filter" onclick="Stats.setTimeFilter('1y'); this.parentElement.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active')); this.classList.add('active');">1 Year</button>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="monthlyTasksChart"></canvas>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+              Task Categories
+            </h2>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent GitHub Repositories & Timeline Milestones -->
+      <div class="two-col-grid">
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              Active GitHub Repositories
+            </h2>
+            <a href="https://github.com/kreier?tab=repositories" target="_blank" class="btn btn-xs btn-ghost">View All on GitHub →</a>
+          </div>
+          <div class="repos-grid" id="github-repos-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              Historical Milestones
+            </h2>
+            <span class="badge badge-subtle">Since 2018-03-07</span>
+          </div>
+          <div class="milestones-timeline" id="history-milestones">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ====================================================================
+         VIEW 2: RECURRING CHECKS (RENT, MAINTENANCE, INTERNET)
+         ==================================================================== -->
+    <div id="view-recurring" class="view-tab-content">
+      
+      <!-- Month Selector Bar -->
+      <div class="month-controls">
+        <div class="btn-group-sm">
+          <button class="btn btn-secondary btn-sm" onclick="Recurring.prevMonth()">← Previous Month</button>
+          <button class="btn btn-ghost btn-sm" onclick="Recurring.setSelectedMonth(Recurring.getCurrentYearMonth())">Current Month</button>
+          <button class="btn btn-secondary btn-sm" onclick="Recurring.nextMonth()">Next Month →</button>
+        </div>
+
+        <div style="text-align: center;">
+          <h2 class="month-selector-title" id="recurring-month-display">November 2026</h2>
+          <div id="recurring-progress-text" class="text-sm text-muted">Checking status...</div>
+          <div class="recurring-progress-bar" style="width: 220px; margin: 4px auto 0;">
+            <div id="recurring-progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('new-rec-modal').classList.add('active')">
+          + Add Recurring Bill
+        </button>
+      </div>
+
+      <!-- Recurring Items List -->
+      <div id="recurring-tasks-container">
+        <!-- Rendered by recurring.js -->
+      </div>
+
+    </div>
+
+    <!-- ====================================================================
+         VIEW 3: ACTIVE TASKS, EMAIL INBOX & PROJECTS
+         ==================================================================== -->
+    <div id="view-tasks" class="view-tab-content">
+      <div class="tasks-columns-grid">
+        
+        <!-- Left Column: Active Tasks List -->
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              Active To-Do Items
+            </h2>
+            <div class="btn-filter-group">
+              <button class="btn-filter task-filter-btn active" data-filter="all" onclick="Tasks.setTaskFilter('all')">All</button>
+              <button class="btn-filter task-filter-btn" data-filter="active" onclick="Tasks.setTaskFilter('active')">Active</button>
+              <button class="btn-filter task-filter-btn" data-filter="done" onclick="Tasks.setTaskFilter('done')">Done</button>
+            </div>
+          </div>
+
+          <!-- Add Task Input Form -->
+          <div class="task-input-bar">
+            <input type="text" id="new-task-input" class="input" style="flex: 1;" placeholder="Add a new task (e.g., Update SSL certificate, follow up on mail)...">
+            <select id="new-task-priority" class="select">
+              <option value="high">High Priority</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+            <button class="btn btn-primary" onclick="Tasks.addNewTaskFromForm()">Add</button>
+          </div>
+
+          <div id="active-tasks-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Right Column: Email Queue & Projects Needing Updates -->
+        <div>
+          
+          <!-- Open Email Queue Widget -->
+          <div class="email-tracker-box">
+            <div class="section-header">
+              <h3 class="section-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Email Response Queue
+              </h3>
+              <span class="badge badge-warning">Inbox Tracker</span>
+            </div>
+
+            <div class="email-counter-row">
+              <div>
+                <div class="kpi-label">Open Emails Waiting to Answer</div>
+                <div class="email-count-display" id="email-waiting-count">3</div>
+                <div class="text-sm text-muted">Last cleared: <span id="email-last-reviewed">Today</span></div>
+              </div>
+
+              <div class="counter-buttons">
+                <button class="btn btn-secondary btn-icon-only" onclick="Tasks.adjustEmailCount(-1)" title="Decrement email count">−</button>
+                <button class="btn btn-secondary btn-icon-only" onclick="Tasks.adjustEmailCount(1)" title="Increment email count">+</button>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0.5rem;">
+              <label class="form-label">Urgent / Priority Email Notes:</label>
+              <textarea id="email-tracker-notes" class="textarea" rows="2" placeholder="List who or what thread is pending reply..." onblur="Tasks.saveEmailNotes()"></textarea>
+            </div>
+            <button class="btn btn-xs btn-ghost" onclick="Tasks.saveEmailNotes()">Save Notes</button>
+          </div>
+
+          <!-- Projects Needing Updates Widget -->
+          <div class="section-card">
+            <div class="section-header">
+              <h3 class="section-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Projects Tracking
+              </h3>
+              <button class="btn btn-xs btn-secondary" onclick="Tasks.addNewProject()">+ Add Project</button>
+            </div>
+            <div id="projects-list-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW 4: GOOGLE DRIVE DOCUMENTS & RECEIPTS
+         ==================================================================== -->
+    <div id="view-drive" class="view-tab-content">
+      <div class="section-card">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              Google Drive Subfolder Explorer
+            </h2>
+            <span class="section-subtitle">Dedicated subfolder for rent receipts, invoices, contract documents, and private backup</span>
+          </div>
+          <div class="btn-group-sm">
+            <button class="btn btn-secondary btn-sm" onclick="App.loadDriveFolderFiles()">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        <div id="drive-files-container">
+          <div class="empty-state">
+            <p>Sign in with your Google account above to browse or upload receipts and documents to your private Google Drive folder.</p>
+          </div>
+        </div>
+
+        <!-- Upload Dropzone -->
+        <div class="upload-dropzone" onclick="document.getElementById('drive-file-input').click()">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 0.5rem; color: var(--accent-primary);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <p><strong>Click to upload a document or receipt</strong> to Google Drive</p>
+          <span class="text-sm text-muted">Supports PDFs, PNG/JPG photos of bank slips, invoices, or notes</span>
+          <input type="file" id="drive-file-input" style="display: none;" onchange="App.uploadFileToDrive(this)">
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW 5: NOTES ARCHIVE (FROM 2018-03-07)
+         ==================================================================== -->
+    <div id="view-notes" class="view-tab-content">
+      <div class="section-card">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              Notes Archive (Origin: 2018-03-07)
+            </h2>
+            <span class="section-subtitle">Long-term reference, retrospective history, and imported iCloud notes</span>
+          </div>
+
+          <div class="btn-group-sm">
+            <button class="btn btn-secondary btn-sm" onclick="Tasks.addNewNote()">+ New Note</button>
+            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('import-notes-input').click()">Import JSON / Notes</button>
+            <input type="file" id="import-notes-input" style="display: none;" accept=".json" onchange="App.importDataJson(this)">
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div style="margin-bottom: 1rem;">
+          <input type="text" class="input" style="width: 100%;" placeholder="Search archive by keyword or tag (e.g. rent, icloud, 2018)..." oninput="Tasks.filterNotes(this.value)">
+        </div>
+
+        <div id="notes-archive-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================================
+       MODAL: EDIT RECURRING TASK
+       ====================================================================== -->
+  <div id="recurring-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="section-title">Edit Recurring Task & Month Status</h3>
+        <button class="btn btn-ghost btn-xs" onclick="Recurring.closeModal()">&times;</button>
+      </div>
+
+      <input type="hidden" id="edit-rec-id">
+
+      <div class="form-group">
+        <label class="form-label">Task Title</label>
+        <input type="text" id="edit-rec-title" class="input" style="width: 100%;">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <input type="text" id="edit-rec-category" class="input" style="width: 100%;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount (e.g. 1,200 €)</label>
+          <input type="text" id="edit-rec-amount" class="input" style="width: 100%;">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Due Day of Month (1-31)</label>
+          <input type="number" id="edit-rec-due-day" class="input" min="1" max="31" style="width: 100%;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Payee / Recipient</label>
+          <input type="text" id="edit-rec-recipient" class="input" style="width: 100%;">
+        </div>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+      <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--accent-primary);">Current Selected Month Status</h4>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select id="edit-rec-status" class="select" style="width: 100%;">
+            <option value="pending">Pending</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Payment Date</label>
+          <input type="date" id="edit-rec-date" class="input" style="width: 100%;">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Payment Notes / Reference</label>
+        <input type="text" id="edit-rec-note" class="input" style="width: 100%;" placeholder="e.g. Bank wire ref #9982, auto-debit">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="Recurring.closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="Recurring.saveDetailsModal()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL: CREATE NEW RECURRING TASK
+       ====================================================================== -->
+  <div id="new-rec-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="section-title">Add New Recurring Task</h3>
+        <button class="btn btn-ghost btn-xs" onclick="document.getElementById('new-rec-modal').classList.remove('active')">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Task Name *</label>
+        <input type="text" id="new-rec-title" class="input" style="width: 100%;" placeholder="e.g. Apartment Rent, Garage, Streaming">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <input type="text" id="new-rec-category" class="input" style="width: 100%;" placeholder="Living, Utilities, Subscriptions">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount</label>
+          <input type="text" id="new-rec-amount" class="input" style="width: 100%;" placeholder="e.g. 50 €">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Due Day of Month (1-31)</label>
+          <input type="number" id="new-rec-due-day" class="input" min="1" max="31" value="1" style="width: 100%;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Payee / Recipient</label>
+          <input type="text" id="new-rec-recipient" class="input" style="width: 100%;" placeholder="e.g. Landlord, Utility Co">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="document.getElementById('new-rec-modal').classList.remove('active')">Cancel</button>
+        <button class="btn btn-primary" onclick="
+          const title = document.getElementById('new-rec-title').value.trim();
+          if (title) {
+            Recurring.addNewTask(
+              title,
+              document.getElementById('new-rec-category').value.trim(),
+              document.getElementById('new-rec-amount').value.trim(),
+              document.getElementById('new-rec-due-day').value,
+              document.getElementById('new-rec-recipient').value.trim()
+            );
+            document.getElementById('new-rec-modal').classList.remove('active');
+            document.getElementById('new-rec-title').value = '';
+          }
+        ">Create Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL: SETTINGS & GOOGLE OAUTH CONFIGURATION
+       ====================================================================== -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="section-title">Settings & Configuration</h3>
+        <button class="btn btn-ghost btn-xs" onclick="App.closeSettingsModal()">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Google Cloud OAuth Web Client ID</label>
+        <input type="text" id="setting-client-id" class="input" style="width: 100%;" placeholder="xxxxxxxxxxxx.apps.googleusercontent.com">
+        <span class="text-sm text-muted" style="display: block; margin-top: 0.35rem;">
+          To enable Google Sign-In and Google Drive access on <code>kreier.github.io/todo</code>:
+          <ol style="margin-left: 1.25rem; margin-top: 0.25rem; line-height: 1.4;">
+            <li>Visit <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color: var(--accent-primary);">Google Cloud Console</a>.</li>
+            <li>Create an OAuth 2.0 Client ID (Web Application).</li>
+            <li>Add Authorized JavaScript origins: <code>https://kreier.github.io</code> and <code>http://localhost:8000</code>.</li>
+            <li>Paste your Client ID here. It will be remembered securely in your browser's localStorage.</li>
+          </ol>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Google Drive Dedicated Folder Name</label>
+        <input type="text" id="setting-drive-folder" class="input" style="width: 100%;" value="Kreier-ToDo">
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.25rem 0;">
+
+      <div class="form-group">
+        <label class="form-label">Backup & Data Portability</label>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary btn-sm" onclick="App.exportDataJson()">Export JSON Backup</button>
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('import-backup-input').click()">Import JSON Backup</button>
+          <input type="file" id="import-backup-input" style="display: none;" accept=".json" onchange="App.importDataJson(this)">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="App.closeSettingsModal()">Close</button>
+        <button class="btn btn-primary" onclick="App.saveSettings()">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Scripts (ES Modular Architecture) -->
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/drive.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/recurring.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

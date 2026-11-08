@@ -1,0 +1,46 @@
+name: Update Public Statistics
+
+on:
+  schedule:
+    # Run once daily at 03:00 UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/update_stats.py'
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run statistics updater
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: kreier
+        run: |
+          python scripts/update_stats.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add data/public_stats.json
+          if git diff --staged --quiet; then
+            echo "No changes in statistics to commit."
+          else
+            git commit -m "Automated update: public statistics [skip ci]"
+            git push
+          fi

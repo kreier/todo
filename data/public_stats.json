@@ -1,0 +1,530 @@
+{
+  "updated_at": "2026-11-08T02:21:07.658191+00:00",
+  "historical_start_date": "2018-03-07",
+  "description": "Public aggregated statistics for kreier.github.io/todo",
+  "metrics": {
+    "total_tasks_completed": 2393,
+    "average_tasks_per_month": 22.8,
+    "github_public_repos": 215,
+    "emails_answered_this_month": 58,
+    "current_open_emails": 3,
+    "active_projects": 6,
+    "projects_needing_update": 2
+  },
+  "monthly_task_history": [
+    {
+      "year_month": "2018-03",
+      "completed": 14
+    },
+    {
+      "year_month": "2018-04",
+      "completed": 12
+    },
+    {
+      "year_month": "2018-05",
+      "completed": 19
+    },
+    {
+      "year_month": "2018-06",
+      "completed": 17
+    },
+    {
+      "year_month": "2018-07",
+      "completed": 15
+    },
+    {
+      "year_month": "2018-08",
+      "completed": 13
+    },
+    {
+      "year_month": "2018-09",
+      "completed": 20
+    },
+    {
+      "year_month": "2018-10",
+      "completed": 18
+    },
+    {
+      "year_month": "2018-11",
+      "completed": 16
+    },
+    {
+      "year_month": "2018-12",
+      "completed": 14
+    },
+    {
+      "year_month": "2019-01",
+      "completed": 14
+    },
+    {
+      "year_month": "2019-02",
+      "completed": 21
+    },
+    {
+      "year_month": "2019-03",
+      "completed": 19
+    },
+    {
+      "year_month": "2019-04",
+      "completed": 17
+    },
+    {
+      "year_month": "2019-05",
+      "completed": 15
+    },
+    {
+      "year_month": "2019-06",
+      "completed": 13
+    },
+    {
+      "year_month": "2019-07",
+      "completed": 20
+    },
+    {
+      "year_month": "2019-08",
+      "completed": 18
+    },
+    {
+      "year_month": "2019-09",
+      "completed": 16
+    },
+    {
+      "year_month": "2019-10",
+      "completed": 14
+    },
+    {
+      "year_month": "2019-11",
+      "completed": 21
+    },
+    {
+      "year_month": "2019-12",
+      "completed": 19
+    },
+    {
+      "year_month": "2020-01",
+      "completed": 20
+    },
+    {
+      "year_month": "2020-02",
+      "completed": 18
+    },
+    {
+      "year_month": "2020-03",
+      "completed": 16
+    },
+    {
+      "year_month": "2020-04",
+      "completed": 23
+    },
+    {
+      "year_month": "2020-05",
+      "completed": 21
+    },
+    {
+      "year_month": "2020-06",
+      "completed": 19
+    },
+    {
+      "year_month": "2020-07",
+      "completed": 17
+    },
+    {
+      "year_month": "2020-08",
+      "completed": 15
+    },
+    {
+      "year_month": "2020-09",
+      "completed": 22
+    },
+    {
+      "year_month": "2020-10",
+      "completed": 20
+    },
+    {
+      "year_month": "2020-11",
+      "completed": 18
+    },
+    {
+      "year_month": "2020-12",
+      "completed": 16
+    },
+    {
+      "year_month": "2021-01",
+      "completed": 17
+    },
+    {
+      "year_month": "2021-02",
+      "completed": 24
+    },
+    {
+      "year_month": "2021-03",
+      "completed": 22
+    },
+    {
+      "year_month": "2021-04",
+      "completed": 20
+    },
+    {
+      "year_month": "2021-05",
+      "completed": 18
+    },
+    {
+      "year_month": "2021-06",
+      "completed": 25
+    },
+    {
+      "year_month": "2021-07",
+      "completed": 23
+    },
+    {
+      "year_month": "2021-08",
+      "completed": 21
+    },
+    {
+      "year_month": "2021-09",
+      "completed": 19
+    },
+    {
+      "year_month": "2021-10",
+      "completed": 17
+    },
+    {
+      "year_month": "2021-11",
+      "completed": 24
+    },
+    {
+      "year_month": "2021-12",
+      "completed": 22
+    },
+    {
+      "year_month": "2022-01",
+      "completed": 23
+    },
+    {
+      "year_month": "2022-02",
+      "completed": 21
+    },
+    {
+      "year_month": "2022-03",
+      "completed": 19
+    },
+    {
+      "year_month": "2022-04",
+      "completed": 26
+    },
+    {
+      "year_month": "2022-05",
+      "completed": 24
+    },
+    {
+      "year_month": "2022-06",
+      "completed": 22
+    },
+    {
+      "year_month": "2022-07",
+      "completed": 20
+    },
+    {
+      "year_month": "2022-08",
+      "completed": 27
+    },
+    {
+      "year_month": "2022-09",
+      "completed": 25
+    },
+    {
+      "year_month": "2022-10",
+      "completed": 23
+    },
+    {
+      "year_month": "2022-11",
+      "completed": 21
+    },
+    {
+      "year_month": "2022-12",
+      "completed": 19
+    },
+    {
+      "year_month": "2023-01",
+      "completed": 29
+    },
+    {
+      "year_month": "2023-02",
+      "completed": 27
+    },
+    {
+      "year_month": "2023-03",
+      "completed": 25
+    },
+    {
+      "year_month": "2023-04",
+      "completed": 23
+    },
+    {
+      "year_month": "2023-05",
+      "completed": 21
+    },
+    {
+      "year_month": "2023-06",
+      "completed": 28
+    },
+    {
+      "year_month": "2023-07",
+      "completed": 26
+    },
+    {
+      "year_month": "2023-08",
+      "completed": 24
+    },
+    {
+      "year_month": "2023-09",
+      "completed": 22
+    },
+    {
+      "year_month": "2023-10",
+      "completed": 29
+    },
+    {
+      "year_month": "2023-11",
+      "completed": 27
+    },
+    {
+      "year_month": "2023-12",
+      "completed": 25
+    },
+    {
+      "year_month": "2024-01",
+      "completed": 25
+    },
+    {
+      "year_month": "2024-02",
+      "completed": 23
+    },
+    {
+      "year_month": "2024-03",
+      "completed": 30
+    },
+    {
+      "year_month": "2024-04",
+      "completed": 28
+    },
+    {
+      "year_month": "2024-05",
+      "completed": 26
+    },
+    {
+      "year_month": "2024-06",
+      "completed": 24
+    },
+    {
+      "year_month": "2024-07",
+      "completed": 22
+    },
+    {
+      "year_month": "2024-08",
+      "completed": 29
+    },
+    {
+      "year_month": "2024-09",
+      "completed": 27
+    },
+    {
+      "year_month": "2024-10",
+      "completed": 25
+    },
+    {
+      "year_month": "2024-11",
+      "completed": 23
+    },
+    {
+      "year_month": "2024-12",
+      "completed": 30
+    },
+    {
+      "year_month": "2025-01",
+      "completed": 31
+    },
+    {
+      "year_month": "2025-02",
+      "completed": 29
+    },
+    {
+      "year_month": "2025-03",
+      "completed": 27
+    },
+    {
+      "year_month": "2025-04",
+      "completed": 25
+    },
+    {
+      "year_month": "2025-05",
+      "completed": 32
+    },
+    {
+      "year_month": "2025-06",
+      "completed": 30
+    },
+    {
+      "year_month": "2025-07",
+      "completed": 28
+    },
+    {
+      "year_month": "2025-08",
+      "completed": 26
+    },
+    {
+      "year_month": "2025-09",
+      "completed": 24
+    },
+    {
+      "year_month": "2025-10",
+      "completed": 31
+    },
+    {
+      "year_month": "2025-11",
+      "completed": 29
+    },
+    {
+      "year_month": "2025-12",
+      "completed": 27
+    },
+    {
+      "year_month": "2026-01",
+      "completed": 28
+    },
+    {
+      "year_month": "2026-02",
+      "completed": 26
+    },
+    {
+      "year_month": "2026-03",
+      "completed": 33
+    },
+    {
+      "year_month": "2026-04",
+      "completed": 31
+    },
+    {
+      "year_month": "2026-05",
+      "completed": 29
+    },
+    {
+      "year_month": "2026-06",
+      "completed": 27
+    },
+    {
+      "year_month": "2026-07",
+      "completed": 34
+    },
+    {
+      "year_month": "2026-08",
+      "completed": 32
+    },
+    {
+      "year_month": "2026-09",
+      "completed": 30
+    },
+    {
+      "year_month": "2026-10",
+      "completed": 28
+    },
+    {
+      "year_month": "2026-11",
+      "completed": 26
+    }
+  ],
+  "github_stats": {
+    "user": "kreier",
+    "public_repos": 215,
+    "total_stars": 68,
+    "followers": 39,
+    "recent_active_repos": [
+      {
+        "name": "todo",
+        "html_url": "https://github.com/kreier/todo",
+        "description": "Organize my life with all the things I need to do - and some calming statistics.",
+        "updated_at": "2026-11-08T02:10:57Z",
+        "stars": 0,
+        "language": "Other"
+      },
+      {
+        "name": "freetrans",
+        "html_url": "https://github.com/kreier/freetrans",
+        "description": "Free, open translation across multiple languages and providers. No API keys, no sign-up, no costs.",
+        "updated_at": "2026-11-05T06:03:33Z",
+        "stars": 2,
+        "language": "Python"
+      },
+      {
+        "name": "googletrans-curl",
+        "html_url": "https://github.com/kreier/googletrans-curl",
+        "description": "(unofficial) Googletrans: Free and Unlimited Google translate API for Python. Translates totally free of charge.",
+        "updated_at": "2026-11-05T06:01:21Z",
+        "stars": 10,
+        "language": "Python"
+      },
+      {
+        "name": "llama.cpp-jetson.nano",
+        "html_url": "https://github.com/kreier/llama.cpp-jetson.nano",
+        "description": "Install a CUDA version of llama.cpp on the Jetson Nano, compiled with gcc 8.5.",
+        "updated_at": "2026-11-03T09:54:33Z",
+        "stars": 9,
+        "language": "Shell"
+      },
+      {
+        "name": "llama.cpp-jetson",
+        "html_url": "https://github.com/kreier/llama.cpp-jetson",
+        "description": "Compile llama.cpp with GPU support on the Jetson Nano 2019 with gcc 8.5 and nvcc 10.2.",
+        "updated_at": "2026-11-02T14:42:37Z",
+        "stars": 36,
+        "language": "Cuda"
+      },
+      {
+        "name": "nvr",
+        "html_url": "https://github.com/kreier/nvr",
+        "description": "List of NVR (Network Video Recorders) with detailled specs available here in Vietnam.",
+        "updated_at": "2026-11-02T09:08:55Z",
+        "stars": 0,
+        "language": "JavaScript"
+      },
+      {
+        "name": "dictionary",
+        "html_url": "https://github.com/kreier/dictionary",
+        "description": "Crowdsourced translation editor UI backed by GitHub PR automation.",
+        "updated_at": "2026-11-01T23:32:43Z",
+        "stars": 0,
+        "language": "TypeScript"
+      },
+      {
+        "name": "statistics-diary",
+        "html_url": "https://github.com/kreier/statistics-diary",
+        "description": "Create statistics and visual representations of the frequency of diary entries for projects, travel and my blog.",
+        "updated_at": "2026-11-01T04:41:20Z",
+        "stars": 0,
+        "language": "Python"
+      },
+      {
+        "name": "timeline",
+        "html_url": "https://github.com/kreier/timeline",
+        "description": "An overview of the human history as a graph in a pdf file.",
+        "updated_at": "2026-11-01T03:54:17Z",
+        "stars": 11,
+        "language": "Python"
+      },
+      {
+        "name": "review1",
+        "html_url": "https://github.com/kreier/review1",
+        "description": "Framework to have AI review and analyze repositories and publish a report.",
+        "updated_at": "2026-11-01T02:50:26Z",
+        "stars": 0,
+        "language": "HTML"
+      }
+    ]
+  },
+  "categories_distribution": {
+    "Recurring / Bills": 340,
+    "Code & GitHub Projects": 520,
+    "Email & Correspondence": 410,
+    "Home & Organization": 210
+  }
+}
