@@ -85,7 +85,10 @@ To sign in with your Google Account and connect your Google Drive:
    - **Google Drive API**
 4. Under **APIs & Services > OAuth consent screen**:
    - Choose **External** (or Internal for Google Workspace).
-   - Add scopes: `.../auth/drive.file`, `.../auth/userinfo.profile`, `.../auth/userinfo.email`.
+   - Click **Add or remove scopes**:
+     - ❌ **DO NOT select `.../auth/drive`** (that requests full access to your whole Google Drive!).
+     - ✅ **DO select `https://www.googleapis.com/auth/drive.file`**: This restricts the app so Google grants access **ONLY to files and folders created by this app** (e.g. its dedicated `Kreier-ToDo` folder). Google blocks the app from accessing, listing, or viewing any of your other Drive files, personal folders, or documents!
+     - Add `.../auth/userinfo.profile` and `.../auth/userinfo.email`.
 5. Under **APIs & Services > Credentials > Create Credentials**:
    - Select **OAuth Client ID** -> Application type: **Web application**.
    - Under **Authorized JavaScript origins**, add:

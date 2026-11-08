@@ -538,21 +538,29 @@
       <div class="form-group">
         <label class="form-label">Google Cloud OAuth Web Client ID</label>
         <input type="text" id="setting-client-id" class="input" style="width: 100%;" placeholder="xxxxxxxxxxxx.apps.googleusercontent.com">
-        <span class="text-sm text-muted" style="display: block; margin-top: 0.35rem;">
-          To enable Google Sign-In and Google Drive access on <code>kreier.github.io/todo</code>:
-          <ol style="margin-left: 1.25rem; margin-top: 0.25rem; line-height: 1.4;">
-            <li>Visit <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color: var(--accent-primary);">Google Cloud Console</a>.</li>
-            <li>Create an OAuth 2.0 Client ID (Web Application).</li>
-            <li>Add Authorized JavaScript origins: <code>https://kreier.github.io</code> and <code>http://localhost:8000</code>.</li>
-            <li>Paste your Client ID here. It will be remembered securely in your browser's localStorage.</li>
-          </ol>
-        </span>
+        <div class="text-sm text-muted" style="margin-top: 0.5rem; background: var(--bg-tertiary); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+          <strong style="color: var(--accent-success); display: block; margin-bottom: 0.25rem;">🔒 Privacy & Scope Setup (Restricted to ONE Folder only):</strong>
+          In Google Cloud Console under <em>OAuth consent screen &gt; Scopes</em>:
+          <ul style="margin-left: 1.25rem; margin-top: 0.25rem; line-height: 1.4;">
+            <li><strong>DO NOT</strong> select <code>.../auth/drive</code> (that requests full drive access).</li>
+            <li><strong>DO SELECT</strong> <code>https://www.googleapis.com/auth/drive.file</code>. This officially restricts the app so Google allows it to see <strong>ONLY files it creates in its own folder</strong>. It is completely blind to the rest of your Google Drive.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Google Drive Dedicated Folder Name</label>
-        <input type="text" id="setting-drive-folder" class="input" style="width: 100%;" value="Kreier-ToDo">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Dedicated Folder Name</label>
+          <input type="text" id="setting-drive-folder" class="input" style="width: 100%;" value="Kreier-ToDo">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Specific Folder ID (Optional)</label>
+          <input type="text" id="setting-drive-folder-id" class="input" style="width: 100%;" placeholder="e.g. 1A2b3C_xyz...">
+        </div>
       </div>
+      <span class="text-sm text-muted" style="display: block; margin-top: -0.5rem; margin-bottom: 1rem;">
+        Leave Folder ID blank to automatically create and use the dedicated <code>Kreier-ToDo</code> folder.
+      </span>
 
       <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.25rem 0;">
 

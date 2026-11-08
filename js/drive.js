@@ -19,9 +19,18 @@ class DriveManager {
 
   /**
    * Find or create the dedicated app folder in Google Drive (e.g., 'Kreier-ToDo')
+   * With drive.file scope, the app only accesses this dedicated folder and cannot see the rest of your drive.
    */
   async ensureAppFolder() {
     if (this.folderId) return this.folderId;
+    
+    // Check if user set an explicit folder ID in settings
+    const configuredFolderId = window.CONFIG.DRIVE_FOLDER_ID || localStorage.getItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID);
+    if (configuredFolderId) {
+      this.folderId = configuredFolderId.trim();
+      return this.folderId;
+    }
+
     const headers = await this.getHeaders();
     const folderName = window.CONFIG.DRIVE_FOLDER_NAME;
 

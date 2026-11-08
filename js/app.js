@@ -336,6 +336,7 @@ class Application {
 
     const clientIdInput = document.getElementById('setting-client-id');
     const folderInput = document.getElementById('setting-drive-folder');
+    const folderIdInput = document.getElementById('setting-drive-folder-id');
 
     if (clientIdInput) {
       clientIdInput.value = localStorage.getItem(window.CONFIG.STORAGE_KEYS.CLIENT_ID) || window.CONFIG.GOOGLE_CLIENT_ID || '';
@@ -343,6 +344,9 @@ class Application {
     }
     if (folderInput) {
       folderInput.value = window.CONFIG.DRIVE_FOLDER_NAME;
+    }
+    if (folderIdInput) {
+      folderIdInput.value = localStorage.getItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID) || window.CONFIG.DRIVE_FOLDER_ID || '';
     }
 
     modal.classList.add('active');
@@ -356,6 +360,7 @@ class Application {
   saveSettings() {
     const clientId = document.getElementById('setting-client-id').value.trim();
     const folder = document.getElementById('setting-drive-folder').value.trim();
+    const folderId = document.getElementById('setting-drive-folder-id')?.value.trim() || '';
 
     if (clientId) {
       localStorage.setItem(window.CONFIG.STORAGE_KEYS.CLIENT_ID, clientId);
@@ -367,6 +372,16 @@ class Application {
 
     if (folder) {
       window.CONFIG.DRIVE_FOLDER_NAME = folder;
+      localStorage.setItem(window.CONFIG.STORAGE_KEYS.FOLDER_NAME, folder);
+    }
+
+    if (folderId) {
+      window.CONFIG.DRIVE_FOLDER_ID = folderId;
+      localStorage.setItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID, folderId);
+      if (window.Drive) window.Drive.folderId = folderId;
+    } else {
+      window.CONFIG.DRIVE_FOLDER_ID = '';
+      localStorage.removeItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID);
     }
 
     this.closeSettingsModal();
