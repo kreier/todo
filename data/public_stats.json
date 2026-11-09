@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-08T09:39:16.804702+00:00",
+  "updated_at": "2026-11-09T10:32:03.155864+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -436,16 +436,40 @@
   "github_stats": {
     "user": "kreier",
     "public_repos": 215,
-    "total_stars": 68,
+    "total_stars": 102,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "rp2350",
+        "html_url": "https://github.com/kreier/rp2350",
+        "description": "Example programs in CircuitPython and C for the Raspberry Pico 2350.",
+        "updated_at": "2026-11-09T09:44:14Z",
+        "stars": 0,
+        "language": "Python"
+      },
+      {
+        "name": "nvr",
+        "html_url": "https://github.com/kreier/nvr",
+        "description": "List of NVR (Network Video Recorders) with detailled specs available here in Vietnam.",
+        "updated_at": "2026-11-09T09:28:14Z",
+        "stars": 0,
+        "language": "JavaScript"
+      },
       {
         "name": "todo",
         "html_url": "https://github.com/kreier/todo",
         "description": "Organize my life with all the things I need to do - and some calming statistics.",
-        "updated_at": "2026-11-08T02:53:35Z",
+        "updated_at": "2026-11-09T02:55:20Z",
         "stars": 0,
         "language": "JavaScript"
+      },
+      {
+        "name": "cru",
+        "html_url": "https://github.com/kreier/cru",
+        "description": "Custom Resolution Utility",
+        "updated_at": "2026-11-08T10:14:49Z",
+        "stars": 45,
+        "language": "C++"
       },
       {
         "name": "freetrans",
@@ -480,14 +504,6 @@
         "language": "Cuda"
       },
       {
-        "name": "nvr",
-        "html_url": "https://github.com/kreier/nvr",
-        "description": "List of NVR (Network Video Recorders) with detailled specs available here in Vietnam.",
-        "updated_at": "2026-11-02T09:08:55Z",
-        "stars": 0,
-        "language": "JavaScript"
-      },
-      {
         "name": "dictionary",
         "html_url": "https://github.com/kreier/dictionary",
         "description": "Crowdsourced translation editor UI backed by GitHub PR automation.",
@@ -502,22 +518,6 @@
         "updated_at": "2026-11-01T04:41:20Z",
         "stars": 0,
         "language": "Python"
-      },
-      {
-        "name": "timeline",
-        "html_url": "https://github.com/kreier/timeline",
-        "description": "An overview of the human history as a graph in a pdf file.",
-        "updated_at": "2026-11-01T03:54:17Z",
-        "stars": 11,
-        "language": "Python"
-      },
-      {
-        "name": "review1",
-        "html_url": "https://github.com/kreier/review1",
-        "description": "Framework to have AI review and analyze repositories and publish a report.",
-        "updated_at": "2026-11-01T02:50:26Z",
-        "stars": 0,
-        "language": "HTML"
       }
     ]
   },
