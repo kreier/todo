@@ -64,14 +64,19 @@ This application operates as a **secure, serverless, client-side dashboard** hos
 
 ### 4. 🔒 Google Drive Integration (Zero-Server Privacy)
 - **Browser-Side Authentication**: Uses Google Identity Services (GIS) OAuth 2.0 with the privacy-friendly `https://www.googleapis.com/auth/drive.file` scope.
-- **Dedicated Folder (`Kreier-ToDo`)**: Files are stored directly in your personal Google Drive and never touch external servers or public git trees.
-- **Receipts & Documents Explorer**: Upload payment slips, PDF invoices, and photos directly to Google Drive and view them with one click.
-- **Offline / Local Mode Fallback**: If not signed in, you can test and use the application immediately using browser LocalStorage, and sync seamlessly once signed in.
+- **Dedicated Folder Selection**:
+  - **Google Drive Folder Picker**: Select any folder inside your Drive interactively.
+  - **Folder ID / URL Entry**: Alternatively, paste the Google Drive URL (e.g. `https://drive.google.com/drive/folders/1aBcDe...`) or folder ID directly.
+  - **Single Folder Isolation**: The app operates **strictly inside this selected folder**. Google blocks the app from reading or listing any other folders or documents in your Google Drive.
+- **Receipts & Documents Explorer**: Upload payment slips, PDF invoices, and photos directly to the folder.
+- **Offline / Local Mode Fallback**: If not signed in, test and use the application immediately using browser LocalStorage, and sync seamlessly once signed in.
 
-### 5. 📜 Historical Notes Archive (since 2018-03-07)
-- Searchable timeline of notes, checklists, and retrospective records dating back to March 2018.
-- Filter by tag (e.g. `#icloud`, `#recurring`, `#milestone`).
-- Import exported iCloud notes using the included Python parser.
+### 5. 📜 Historical Notes Archive & Batch Markdown Importer (since 2018-03-07)
+- **Batch Apple Notes Importer**: Import batches of notes (e.g. 171 Apple Notes converted to markdown):
+  - Automatically parses note titles, dates (dating back to `2018-03-07`), checklist items, and tags.
+  - Extracts open checklists (`- [ ]`) into your active To-Do list.
+  - Optionally uploads the markdown files into an `import/` subfolder in your Google Drive.
+- **Searchable Timeline**: Instant search across notes by keywords, tags (`#living`, `#milestone`), and chronological order.
 
 ---
 

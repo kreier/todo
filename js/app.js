@@ -9,6 +9,7 @@ class Application {
     this.activeTab = 'stats';
     this.syncStatus = 'idle'; // 'idle', 'syncing', 'synced', 'error'
     this.driveFiles = [];
+    this.pendingImportResult = null;
   }
 
   async init() {
@@ -26,6 +27,7 @@ class Application {
     // 4. Setup Authentication and Listeners
     window.Auth?.onAuthChange(async ({ signedIn, user }) => {
       this.updateAuthUI(signedIn, user);
+      this.updateActiveFolderUI();
       if (signedIn) {
         await this.syncFromGoogleDrive();
       } else {
@@ -41,7 +43,8 @@ class Application {
     // 6. Setup Global Event Handlers
     this.setupEventListeners();
 
-    // 7. Initial View Render
+    // 7. Initial View Render & Folder UI
+    this.updateActiveFolderUI();
     this.renderAllViews();
   }
 
@@ -129,13 +132,14 @@ class Application {
       if (driveData) {
         this.privateData = driveData;
         this.saveLocalPrivateData();
-        this.showToast('Synchronized with Google Drive.', 'success');
+        this.showToast('Synchronized with Google Drive folder.', 'success');
       } else {
-        // First time in Drive: upload local copy
+        // First time in this folder: upload local database
         await window.Drive.savePrivateData(this.privateData);
-        this.showToast('Created initial database in Google Drive.', 'info');
+        this.showToast(`Initialized ToDo database inside folder: "${window.Drive.folderName || 'Kreier-ToDo'}".`, 'info');
       }
       this.setSyncStatus('synced');
+      this.updateActiveFolderUI();
       this.renderAllViews();
       this.loadDriveFolderFiles();
     } catch (err) {
@@ -165,6 +169,116 @@ class Application {
     }
   }
 
+  // --- Active Folder UI & Folder Picker ---
+  updateActiveFolderUI() {
+    const signedIn = window.Auth?.isSignedIn();
+    const folderName = window.Drive?.folderName || localStorage.getItem(window.CONFIG.STORAGE_KEYS.FOLDER_NAME) || 'Kreier-ToDo';
+    const folderId = window.Drive?.folderId || localStorage.getItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID);
+    const folderUrl = window.Drive?.folderUrl || (folderId ? `https://drive.google.com/drive/folders/${folderId}` : null);
+
+    const folderPill = document.getElementById('active-folder-pill');
+    if (folderPill) {
+      if (signedIn) {
+        folderPill.style.display = 'inline-flex';
+        folderPill.innerHTML = `
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          <span>Folder: <strong>${this.escapeHtml(folderName)}</strong></span>
+          <button class="btn btn-xs btn-ghost" onclick="App.openFolderPickerModal()" title="Change Google Drive Folder">Change</button>
+        `;
+      } else {
+        folderPill.style.display = 'none';
+      }
+    }
+
+    const driveInfoCard = document.getElementById('drive-folder-info-card');
+    if (driveInfoCard) {
+      if (signedIn) {
+        driveInfoCard.innerHTML = `
+          <div class="folder-header-details">
+            <div class="folder-title-row">
+              <span class="folder-name-title">📁 ${this.escapeHtml(folderName)}</span>
+              <span class="badge badge-success">Active Storage Root</span>
+            </div>
+            <div class="folder-meta-row">
+              ${folderId ? `<span>Folder ID: <code>${folderId}</code></span>` : ''}
+              ${folderUrl ? `<span>• <a href="${folderUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">Open in Google Drive ↗</a></span>` : ''}
+            </div>
+            <p class="text-sm text-muted" style="margin-top: 0.35rem;">
+              The app operates <strong>exclusively inside this folder</strong>. All tasks, JSON database, receipts, and imported notes are kept here.
+            </p>
+          </div>
+          <div class="btn-group-sm">
+            <button class="btn btn-secondary btn-sm" onclick="App.openFolderPickerModal()">
+              📂 Switch / Select Folder
+            </button>
+          </div>
+        `;
+      } else {
+        driveInfoCard.innerHTML = `
+          <div>
+            <p><strong>Connect to Google Drive:</strong> Sign in with Google above to choose or create a dedicated folder for your ToDo files.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="Auth.signIn()">Sign In</button>
+        `;
+      }
+    }
+  }
+
+  openFolderPickerModal() {
+    const modal = document.getElementById('folder-picker-modal');
+    if (!modal) return;
+
+    const input = document.getElementById('manual-folder-input');
+    if (input) {
+      input.value = window.Drive?.folderId || localStorage.getItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID) || '';
+    }
+    modal.classList.add('active');
+  }
+
+  closeFolderPickerModal() {
+    const modal = document.getElementById('folder-picker-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  async connectFolderFromInput() {
+    const input = document.getElementById('manual-folder-input');
+    const val = input ? input.value.trim() : '';
+    if (!val) {
+      this.showToast('Please enter a Google Drive folder ID or URL.', 'warning');
+      return;
+    }
+
+    this.showToast('Connecting to folder...', 'info');
+    try {
+      const folder = await window.Drive.setFolderById(val);
+      this.closeFolderPickerModal();
+      this.showToast(`✓ Connected to folder: "${folder.name}"`, 'success');
+      this.updateActiveFolderUI();
+      await this.syncFromGoogleDrive();
+    } catch (err) {
+      this.showToast(err.message, 'error');
+    }
+  }
+
+  async useDefaultAppFolder() {
+    this.showToast('Setting up default "Kreier-ToDo" folder...', 'info');
+    try {
+      localStorage.removeItem(window.CONFIG.STORAGE_KEYS.FOLDER_ID);
+      window.CONFIG.DRIVE_FOLDER_ID = '';
+      window.CONFIG.DRIVE_FOLDER_NAME = 'Kreier-ToDo';
+      window.Drive.folderId = null;
+      window.Drive.folderName = 'Kreier-ToDo';
+
+      await window.Drive.ensureAppFolder();
+      this.closeFolderPickerModal();
+      this.showToast('✓ Connected to default "Kreier-ToDo" folder.', 'success');
+      this.updateActiveFolderUI();
+      await this.syncFromGoogleDrive();
+    } catch (err) {
+      this.showToast('Failed to setup default folder: ' + err.message, 'error');
+    }
+  }
+
   // --- Google Drive File Explorer & Document Upload ---
   async loadDriveFolderFiles() {
     if (!window.Auth?.isSignedIn() || !window.Drive) return;
@@ -179,7 +293,7 @@ class Application {
       this.renderDriveFilesList(files);
     } catch (e) {
       console.warn('Failed to load drive files:', e);
-      container.innerHTML = `<div class="empty-state"><p>Could not list files from Google Drive.</p></div>`;
+      container.innerHTML = `<div class="empty-state"><p>Could not list files from Google Drive folder.</p></div>`;
     }
   }
 
@@ -190,8 +304,8 @@ class Application {
     if (!files || files.length === 0) {
       container.innerHTML = `
         <div class="empty-state">
-          <p>No documents uploaded in <strong>${window.CONFIG.DRIVE_FOLDER_NAME}</strong> folder yet.</p>
-          <p class="text-muted text-sm">Upload rent receipts, maintenance invoices, or contract documents below.</p>
+          <p>No documents uploaded in <strong>${this.escapeHtml(window.Drive?.folderName || 'this')}</strong> folder yet.</p>
+          <p class="text-muted text-sm">Upload rent receipts, maintenance invoices, contract documents, or import Apple Notes below.</p>
         </div>
       `;
       return;
@@ -199,19 +313,25 @@ class Application {
 
     container.innerHTML = files.map(f => {
       const isJson = f.name.endsWith('.json');
+      const isFolder = f.mimeType === 'application/vnd.google-apps.folder';
+      const isMd = f.name.endsWith('.md') || f.name.endsWith('.markdown');
       const sizeStr = f.size ? `${(f.size / 1024).toFixed(1)} KB` : '';
       const dateStr = f.modifiedTime ? new Date(f.modifiedTime).toLocaleDateString() : '';
 
       return `
         <div class="drive-file-card">
           <div class="file-icon">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
+            ${isFolder ? `
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            ` : `
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            `}
           </div>
           <div class="file-info">
             <a href="${f.webViewLink || '#'}" target="_blank" rel="noopener noreferrer" class="file-title">
@@ -221,6 +341,8 @@ class Application {
               <span>${dateStr}</span>
               ${sizeStr ? `<span>• ${sizeStr}</span>` : ''}
               ${isJson ? `<span class="badge badge-subtle">App Database</span>` : ''}
+              ${isFolder ? `<span class="badge badge-subtle">Folder</span>` : ''}
+              ${isMd ? `<span class="badge badge-subtle">Markdown Note</span>` : ''}
             </div>
           </div>
           <div class="file-actions">
@@ -261,6 +383,120 @@ class Application {
       await this.loadDriveFolderFiles();
     } catch (e) {
       this.showToast('Delete failed: ' + e.message, 'error');
+    }
+  }
+
+  // --- Apple Notes / Markdown Batch Importer Modal ---
+  openImportNotesModal() {
+    const modal = document.getElementById('import-notes-modal');
+    if (!modal) return;
+
+    this.pendingImportResult = null;
+    document.getElementById('import-preview-box').style.display = 'none';
+    document.getElementById('import-progress-box').style.display = 'none';
+    document.getElementById('btn-apply-import').disabled = true;
+
+    modal.classList.add('active');
+  }
+
+  closeImportNotesModal() {
+    const modal = document.getElementById('import-notes-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  async handleBatchNotesFiles(fileInput) {
+    if (!fileInput.files || fileInput.files.length === 0) return;
+
+    const files = fileInput.files;
+    const progressBox = document.getElementById('import-progress-box');
+    const progressBar = document.getElementById('import-progress-fill');
+    const progressLabel = document.getElementById('import-progress-label');
+    const previewBox = document.getElementById('import-preview-box');
+
+    if (progressBox) progressBox.style.display = 'block';
+    if (previewBox) previewBox.style.display = 'none';
+
+    try {
+      const summary = await window.Importer.processFiles(files, (curr, total, name) => {
+        const pct = Math.round((curr / total) * 100);
+        if (progressBar) progressBar.style.width = `${pct}%`;
+        if (progressLabel) progressLabel.textContent = `Parsing ${curr} of ${total} notes (${name})...`;
+      });
+
+      this.pendingImportResult = summary;
+
+      if (progressBox) progressBox.style.display = 'none';
+      if (previewBox) {
+        previewBox.style.display = 'block';
+        previewBox.innerHTML = `
+          <div class="summary-stat-grid">
+            <div class="summary-stat-card">
+              <span class="summary-stat-val">${summary.totalNotes}</span>
+              <span class="summary-stat-lbl">Notes Parsed</span>
+            </div>
+            <div class="summary-stat-card">
+              <span class="summary-stat-val">${summary.totalOpenTasks}</span>
+              <span class="summary-stat-lbl">Open Tasks Found</span>
+            </div>
+            <div class="summary-stat-card">
+              <span class="summary-stat-val" style="font-size: 1rem;">${summary.oldestDate}</span>
+              <span class="summary-stat-lbl">Oldest Record</span>
+            </div>
+            <div class="summary-stat-card">
+              <span class="summary-stat-val" style="font-size: 1rem;">${summary.newestDate}</span>
+              <span class="summary-stat-lbl">Newest Record</span>
+            </div>
+          </div>
+          <div class="notes-sample-list">
+            <strong>Sample of parsed notes:</strong>
+            <ul style="margin-left: 1.25rem; font-size: 0.85rem; margin-top: 0.25rem;">
+              ${summary.notes.slice(0, 5).map(n => `<li><code>${n.date}</code>: <strong>${this.escapeHtml(n.title)}</strong> (${n.todos.length} checklist items)</li>`).join('')}
+              ${summary.notes.length > 5 ? `<li>... and ${summary.notes.length - 5} more notes.</li>` : ''}
+            </ul>
+          </div>
+        `;
+      }
+
+      const applyBtn = document.getElementById('btn-apply-import');
+      if (applyBtn) applyBtn.disabled = false;
+
+    } catch (err) {
+      if (progressBox) progressBox.style.display = 'none';
+      this.showToast('Import parsing error: ' + err.message, 'error');
+    }
+  }
+
+  async executeNotesImport() {
+    if (!this.pendingImportResult) return;
+
+    const addToArchive = document.getElementById('opt-import-archive')?.checked ?? true;
+    const extractTasks = document.getElementById('opt-import-tasks')?.checked ?? true;
+    const uploadToDrive = document.getElementById('opt-import-drive')?.checked ?? false;
+
+    const progressBox = document.getElementById('import-progress-box');
+    const progressBar = document.getElementById('import-progress-fill');
+    const progressLabel = document.getElementById('import-progress-label');
+
+    if (progressBox) progressBox.style.display = 'block';
+    if (progressLabel) progressLabel.textContent = 'Applying changes to database...';
+
+    try {
+      const res = await window.Importer.applyToAppData({
+        addToArchive,
+        extractTasks,
+        uploadToDrive,
+        driveProgressCallback: (curr, total, name) => {
+          const pct = Math.round((curr / total) * 100);
+          if (progressBar) progressBar.style.width = `${pct}%`;
+          if (progressLabel) progressLabel.textContent = `Uploading note ${curr}/${total} to Drive "import/" folder...`;
+        }
+      });
+
+      this.closeImportNotesModal();
+      this.showToast(`✓ Successfully integrated ${res.addedNotesCount} notes and ${res.addedTasksCount} tasks!`, 'success');
+      this.renderAllViews();
+    } catch (err) {
+      this.showToast('Failed to apply import: ' + err.message, 'error');
     }
   }
 
@@ -319,7 +555,10 @@ class Application {
     } else if (tabId === 'tasks' && window.Tasks) {
       window.Tasks.renderAll();
     } else if (tabId === 'drive' && window.Auth?.isSignedIn()) {
+      this.updateActiveFolderUI();
       this.loadDriveFolderFiles();
+    } else if (tabId === 'notes' && window.Tasks) {
+      window.Tasks.renderHistoricalNotes();
     }
   }
 

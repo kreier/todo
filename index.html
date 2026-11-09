@@ -11,7 +11,8 @@
   <!-- Chart.js for calming statistics charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   
-  <!-- Google Identity Services (GIS) Client Library -->
+  <!-- Google API & Google Identity Services (GIS) Client Library -->
+  <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
@@ -28,6 +29,9 @@
       </div>
 
       <div class="header-actions">
+        <!-- Active Storage Folder Pill -->
+        <span id="active-folder-pill" class="active-folder-pill" style="display: none;"></span>
+
         <span id="sync-badge" class="status-badge status-local">💾 Local Mode</span>
 
         <!-- Google Auth Section -->
@@ -332,16 +336,25 @@
          VIEW 4: GOOGLE DRIVE DOCUMENTS & RECEIPTS
          ==================================================================== -->
     <div id="view-drive" class="view-tab-content">
+      
+      <!-- Active Storage Folder Status Card -->
+      <div id="drive-folder-info-card" class="folder-header-card">
+        <!-- Rendered by App.updateActiveFolderUI() -->
+      </div>
+
       <div class="section-card">
         <div class="section-header">
           <div>
             <h2 class="section-title">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-              Google Drive Subfolder Explorer
+              Google Drive Folder Files
             </h2>
-            <span class="section-subtitle">Dedicated subfolder for rent receipts, invoices, contract documents, and private backup</span>
+            <span class="section-subtitle">Dedicated folder for rent receipts, invoices, contract documents, and imported markdown notes</span>
           </div>
           <div class="btn-group-sm">
+            <button class="btn btn-secondary btn-sm" onclick="App.openImportNotesModal()">
+              📥 Import Apple Notes (.md)
+            </button>
             <button class="btn btn-secondary btn-sm" onclick="App.loadDriveFolderFiles()">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
               Refresh
@@ -376,12 +389,15 @@
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
               Notes Archive (Origin: 2018-03-07)
             </h2>
-            <span class="section-subtitle">Long-term reference, retrospective history, and imported iCloud notes</span>
+            <span class="section-subtitle">Long-term reference, retrospective history, and imported iCloud/Apple notes</span>
           </div>
 
           <div class="btn-group-sm">
+            <button class="btn btn-primary btn-sm" onclick="App.openImportNotesModal()">
+              📥 Import Apple Notes (.md)
+            </button>
             <button class="btn btn-secondary btn-sm" onclick="Tasks.addNewNote()">+ New Note</button>
-            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('import-notes-input').click()">Import JSON / Notes</button>
+            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('import-notes-input').click()">Import JSON Backup</button>
             <input type="file" id="import-notes-input" style="display: none;" accept=".json" onchange="App.importDataJson(this)">
           </div>
         </div>
@@ -580,6 +596,123 @@
     </div>
   </div>
 
+  <!-- ======================================================================
+       MODAL: SELECT GOOGLE DRIVE FOLDER (PICKER / URL / ID)
+       ====================================================================== -->
+  <div id="folder-picker-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="section-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          Select Google Drive Storage Folder
+        </h3>
+        <button class="btn btn-ghost btn-xs" onclick="App.closeFolderPickerModal()">&times;</button>
+      </div>
+
+      <p class="text-sm text-secondary" style="margin-bottom: 1.25rem;">
+        Choose where your ToDo database (<code>kreier_todo_data.json</code>), receipts, and imported notes will be stored. The app will <strong>operate strictly within this folder</strong>.
+      </p>
+
+      <!-- Option 1: Interactive Google Drive Picker -->
+      <div class="modal-section-box">
+        <strong style="display: block; margin-bottom: 0.35rem; font-size: 0.9rem;">Option 1: Interactive Folder Picker</strong>
+        <p class="text-sm text-muted" style="margin-bottom: 0.75rem;">Browse and choose any folder directly inside your Google Drive.</p>
+        <button class="btn btn-primary" style="width: 100%;" onclick="Drive.openFolderPicker()">
+          📂 Open Google Drive Folder Picker
+        </button>
+      </div>
+
+      <!-- Option 2: Enter Folder ID or URL -->
+      <div class="modal-section-box">
+        <strong style="display: block; margin-bottom: 0.35rem; font-size: 0.9rem;">Option 2: Enter Folder ID or URL</strong>
+        <p class="text-sm text-muted" style="margin-bottom: 0.5rem;">Paste the Google Drive folder link or folder ID:</p>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="manual-folder-input" class="input" style="flex: 1;" placeholder="https://drive.google.com/drive/folders/... or Folder ID">
+          <button class="btn btn-secondary" onclick="App.connectFolderFromInput()">Connect</button>
+        </div>
+      </div>
+
+      <!-- Option 3: Default Folder -->
+      <div style="text-align: center; margin-top: 1rem;">
+        <button class="btn btn-ghost btn-sm text-muted" onclick="App.useDefaultAppFolder()">
+          Or create / use default dedicated "Kreier-ToDo" folder
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="App.closeFolderPickerModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL: BATCH IMPORT APPLE NOTES (MARKDOWN)
+       ====================================================================== -->
+  <div id="import-notes-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="section-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Import Apple Notes (Markdown)
+        </h3>
+        <button class="btn btn-ghost btn-xs" onclick="App.closeImportNotesModal()">&times;</button>
+      </div>
+
+      <p class="text-sm text-secondary" style="margin-bottom: 1rem;">
+        Import your notes (such as 171 Apple Notes converted to markdown). The parser automatically extracts note titles, dates (dating back to 2018-03-07), checklists, and hashtags.
+      </p>
+
+      <!-- File Select Buttons -->
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
+        <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('batch-notes-dir-input').click()">
+          📁 Select Notes Folder
+        </button>
+        <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('batch-notes-files-input').click()">
+          📄 Select Multiple .md Files
+        </button>
+        <input type="file" id="batch-notes-dir-input" style="display: none;" webkitdirectory directory multiple accept=".md,.markdown,.txt" onchange="App.handleBatchNotesFiles(this)">
+        <input type="file" id="batch-notes-files-input" style="display: none;" multiple accept=".md,.markdown,.txt" onchange="App.handleBatchNotesFiles(this)">
+      </div>
+
+      <!-- Progress Box -->
+      <div id="import-progress-box" style="display: none; margin: 1rem 0;">
+        <span id="import-progress-label" class="text-sm" style="display: block; margin-bottom: 0.35rem;">Parsing notes...</span>
+        <div class="recurring-progress-bar" style="height: 10px;">
+          <div id="import-progress-fill" class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Preview Summary Box -->
+      <div id="import-preview-box" style="display: none;">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Options -->
+      <div class="modal-section-box" style="margin-top: 1rem;">
+        <strong style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem;">Integration Options:</strong>
+        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 0.4rem; cursor: pointer;">
+          <input type="checkbox" id="opt-import-archive" checked>
+          <span>Save all notes into <strong>Notes Archive</strong> timeline (searchable)</span>
+        </label>
+        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 0.4rem; cursor: pointer;">
+          <input type="checkbox" id="opt-import-tasks" checked>
+          <span>Extract unfinished checklists into <strong>Active To-Do List</strong></span>
+        </label>
+        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+          <input type="checkbox" id="opt-import-drive">
+          <span>Also upload individual <code>.md</code> files to Google Drive <code>import/</code> subfolder</span>
+        </label>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="App.closeImportNotesModal()">Cancel</button>
+        <button id="btn-apply-import" class="btn btn-primary" disabled onclick="App.executeNotesImport()">
+          Apply Import to ToDo
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toast-container" class="toast-container"></div>
 
@@ -587,6 +720,7 @@
   <script src="js/config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/drive.js"></script>
+  <script src="js/importer.js"></script>
   <script src="js/stats.js"></script>
   <script src="js/recurring.js"></script>
   <script src="js/tasks.js"></script>
