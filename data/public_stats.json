@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09T10:32:03.155864+00:00",
+  "updated_at": "2026-11-10T10:34:17.997026+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -440,6 +440,22 @@
     "followers": 39,
     "recent_active_repos": [
       {
+        "name": "llama.cpp-jetson.nano",
+        "html_url": "https://github.com/kreier/llama.cpp-jetson.nano",
+        "description": "Install a CUDA version of llama.cpp on the Jetson Nano, compiled with gcc 8.5.",
+        "updated_at": "2026-11-09T17:44:50Z",
+        "stars": 9,
+        "language": "Shell"
+      },
+      {
+        "name": "todo",
+        "html_url": "https://github.com/kreier/todo",
+        "description": "Organize my life with all the things I need to do - and some calming statistics.",
+        "updated_at": "2026-11-09T10:32:08Z",
+        "stars": 0,
+        "language": "JavaScript"
+      },
+      {
         "name": "rp2350",
         "html_url": "https://github.com/kreier/rp2350",
         "description": "Example programs in CircuitPython and C for the Raspberry Pico 2350.",
@@ -452,14 +468,6 @@
         "html_url": "https://github.com/kreier/nvr",
         "description": "List of NVR (Network Video Recorders) with detailled specs available here in Vietnam.",
         "updated_at": "2026-11-09T09:28:14Z",
-        "stars": 0,
-        "language": "JavaScript"
-      },
-      {
-        "name": "todo",
-        "html_url": "https://github.com/kreier/todo",
-        "description": "Organize my life with all the things I need to do - and some calming statistics.",
-        "updated_at": "2026-11-09T02:55:20Z",
         "stars": 0,
         "language": "JavaScript"
       },
@@ -486,14 +494,6 @@
         "updated_at": "2026-11-05T06:01:21Z",
         "stars": 10,
         "language": "Python"
-      },
-      {
-        "name": "llama.cpp-jetson.nano",
-        "html_url": "https://github.com/kreier/llama.cpp-jetson.nano",
-        "description": "Install a CUDA version of llama.cpp on the Jetson Nano, compiled with gcc 8.5.",
-        "updated_at": "2026-11-03T09:54:33Z",
-        "stars": 9,
-        "language": "Shell"
       },
       {
         "name": "llama.cpp-jetson",
