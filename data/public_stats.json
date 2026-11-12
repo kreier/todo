@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-11T09:57:12.054225+00:00",
+  "updated_at": "2026-11-12T10:25:44.491831+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -436,9 +436,33 @@
   "github_stats": {
     "user": "kreier",
     "public_repos": 217,
-    "total_stars": 116,
+    "total_stars": 117,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "cru",
+        "html_url": "https://github.com/kreier/cru",
+        "description": "Custom Resolution Utility",
+        "updated_at": "2026-11-11T22:40:23Z",
+        "stars": 46,
+        "language": "C++"
+      },
+      {
+        "name": "T18",
+        "html_url": "https://github.com/kreier/T18",
+        "description": "Software for the TTGO T18 3.0 20190410, also known as T-Energy.",
+        "updated_at": "2026-11-11T18:51:46Z",
+        "stars": 0,
+        "language": "C++"
+      },
+      {
+        "name": "todo",
+        "html_url": "https://github.com/kreier/todo",
+        "description": "Organize my life with all the things I need to do - and some calming statistics.",
+        "updated_at": "2026-11-11T10:57:17Z",
+        "stars": 0,
+        "language": "JavaScript"
+      },
       {
         "name": "googletrans-curl",
         "html_url": "https://github.com/kreier/googletrans-curl",
@@ -464,14 +488,6 @@
         "language": "C++"
       },
       {
-        "name": "T18",
-        "html_url": "https://github.com/kreier/T18",
-        "description": "Software for the TTGO T18 3.0 20190410, also known as T-Energy.",
-        "updated_at": "2026-11-11T08:33:53Z",
-        "stars": 0,
-        "language": "Other"
-      },
-      {
         "name": "esp32-wifiquality",
         "html_url": "https://github.com/kreier/esp32-wifiquality",
         "description": "Monitoring and documenting the wifi quality on several locations with an ESP32.",
@@ -488,14 +504,6 @@
         "language": "Cuda"
       },
       {
-        "name": "todo",
-        "html_url": "https://github.com/kreier/todo",
-        "description": "Organize my life with all the things I need to do - and some calming statistics.",
-        "updated_at": "2026-11-10T10:34:23Z",
-        "stars": 0,
-        "language": "JavaScript"
-      },
-      {
         "name": "llama.cpp-jetson.nano",
         "html_url": "https://github.com/kreier/llama.cpp-jetson.nano",
         "description": "Install a CUDA version of llama.cpp on the Jetson Nano, compiled with gcc 8.5.",
@@ -510,14 +518,6 @@
         "updated_at": "2026-11-09T09:44:14Z",
         "stars": 0,
         "language": "Python"
-      },
-      {
-        "name": "cru",
-        "html_url": "https://github.com/kreier/cru",
-        "description": "Custom Resolution Utility",
-        "updated_at": "2026-11-08T10:14:49Z",
-        "stars": 45,
-        "language": "C++"
       }
     ]
   },
