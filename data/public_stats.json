@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16T10:17:54.479588+00:00",
+  "updated_at": "2026-11-17T11:17:40.093968+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -436,9 +436,25 @@
   "github_stats": {
     "user": "kreier",
     "public_repos": 219,
-    "total_stars": 72,
+    "total_stars": 134,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "benchmark",
+        "html_url": "https://github.com/kreier/benchmark",
+        "description": "Testing the speed of CPU and more on generations of hardware.",
+        "updated_at": "2026-11-17T03:59:39Z",
+        "stars": 62,
+        "language": "C"
+      },
+      {
+        "name": "aisvn-solarpower",
+        "html_url": "https://github.com/kreier/aisvn-solarpower",
+        "description": "Collect data from solar panel and wind generator at AISVN",
+        "updated_at": "2026-11-16T13:06:22Z",
+        "stars": 0,
+        "language": "C++"
+      },
       {
         "name": "T18",
         "html_url": "https://github.com/kreier/T18",
@@ -446,14 +462,6 @@
         "updated_at": "2026-11-15T17:55:47Z",
         "stars": 0,
         "language": "TypeScript"
-      },
-      {
-        "name": "aisvn-solarpower",
-        "html_url": "https://github.com/kreier/aisvn-solarpower",
-        "description": "Collect data from solar panel and wind generator at AISVN",
-        "updated_at": "2026-11-15T16:58:25Z",
-        "stars": 0,
-        "language": "C++"
       },
       {
         "name": "wifi",
@@ -510,14 +518,6 @@
         "updated_at": "2026-11-11T08:38:15Z",
         "stars": 13,
         "language": "C++"
-      },
-      {
-        "name": "esp32-wifiquality",
-        "html_url": "https://github.com/kreier/esp32-wifiquality",
-        "description": "Monitoring and documenting the wifi quality on several locations with an ESP32.",
-        "updated_at": "2026-11-11T07:47:47Z",
-        "stars": 0,
-        "language": "Other"
       }
     ]
   },
