@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-18T10:50:56.141042+00:00",
+  "updated_at": "2026-11-19T10:50:41.461233+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
     "total_tasks_completed": 2393,
     "average_tasks_per_month": 22.8,
-    "github_public_repos": 219,
+    "github_public_repos": 220,
     "emails_answered_this_month": 58,
     "current_open_emails": 3,
     "active_projects": 6,
@@ -435,10 +435,18 @@
   ],
   "github_stats": {
     "user": "kreier",
-    "public_repos": 219,
+    "public_repos": 220,
     "total_stars": 123,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "esp32-powerconsumption",
+        "html_url": "https://github.com/kreier/esp32-powerconsumption",
+        "description": "Measure and document the power consumption of various ESP32 boards.",
+        "updated_at": "2026-11-19T08:55:28Z",
+        "stars": 0,
+        "language": "C++"
+      },
       {
         "name": "solar",
         "html_url": "https://github.com/kreier/solar",
@@ -510,14 +518,6 @@
         "updated_at": "2026-11-11T09:12:31Z",
         "stars": 12,
         "language": "Python"
-      },
-      {
-        "name": "nvr",
-        "html_url": "https://github.com/kreier/nvr",
-        "description": "List of NVR (Network Video Recorders) with detailled specs available here in Vietnam.",
-        "updated_at": "2026-11-11T08:55:29Z",
-        "stars": 0,
-        "language": "JavaScript"
       }
     ]
   },
