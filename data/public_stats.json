@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-19T10:50:41.461233+00:00",
+  "updated_at": "2026-11-20T10:40:33.663382+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -443,7 +443,7 @@
         "name": "esp32-powerconsumption",
         "html_url": "https://github.com/kreier/esp32-powerconsumption",
         "description": "Measure and document the power consumption of various ESP32 boards.",
-        "updated_at": "2026-11-19T08:55:28Z",
+        "updated_at": "2026-11-20T02:19:27Z",
         "stars": 0,
         "language": "C++"
       },
