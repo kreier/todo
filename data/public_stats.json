@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-22T10:26:59.611439+00:00",
+  "updated_at": "2026-11-23T11:27:01.087253+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
     "total_tasks_completed": 2393,
     "average_tasks_per_month": 22.8,
-    "github_public_repos": 220,
+    "github_public_repos": 222,
     "emails_answered_this_month": 58,
     "current_open_emails": 3,
     "active_projects": 6,
@@ -435,10 +435,26 @@
   ],
   "github_stats": {
     "user": "kreier",
-    "public_repos": 220,
-    "total_stars": 123,
+    "public_repos": 222,
+    "total_stars": 65,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "t-display-1",
+        "html_url": "https://github.com/kreier/t-display-1",
+        "description": "Tất cả những ứng dụng với t-display",
+        "updated_at": "2026-11-23T10:36:47Z",
+        "stars": 0,
+        "language": "C++"
+      },
+      {
+        "name": "t-display-again",
+        "html_url": "https://github.com/kreier/t-display-again",
+        "description": "Đủ loại ứng dụng cho chiếc T-Display của anh Phú.",
+        "updated_at": "2026-11-23T09:00:02Z",
+        "stars": 0,
+        "language": "C"
+      },
       {
         "name": "esp32-powerconsumption",
         "html_url": "https://github.com/kreier/esp32-powerconsumption",
@@ -502,22 +518,6 @@
         "updated_at": "2026-11-12T11:25:49Z",
         "stars": 0,
         "language": "JavaScript"
-      },
-      {
-        "name": "cru",
-        "html_url": "https://github.com/kreier/cru",
-        "description": "Custom Resolution Utility",
-        "updated_at": "2026-11-11T22:40:23Z",
-        "stars": 46,
-        "language": "C++"
-      },
-      {
-        "name": "googletrans-curl",
-        "html_url": "https://github.com/kreier/googletrans-curl",
-        "description": "(unofficial) Googletrans: Free and Unlimited Google translate API for Python. Translates totally free of charge.",
-        "updated_at": "2026-11-11T09:12:31Z",
-        "stars": 12,
-        "language": "Python"
       }
     ]
   },
