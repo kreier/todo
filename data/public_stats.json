@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-23T11:27:01.087253+00:00",
+  "updated_at": "2026-11-24T13:00:56.159748+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
     "total_tasks_completed": 2393,
     "average_tasks_per_month": 22.8,
-    "github_public_repos": 222,
+    "github_public_repos": 223,
     "emails_answered_this_month": 58,
     "current_open_emails": 3,
     "active_projects": 6,
@@ -435,10 +435,18 @@
   ],
   "github_stats": {
     "user": "kreier",
-    "public_repos": 222,
+    "public_repos": 223,
     "total_stars": 65,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "ps3car",
+        "html_url": "https://github.com/kreier/ps3car",
+        "description": "Controlling a robot car with a PS3 Dualshock controller.",
+        "updated_at": "2026-11-23T14:50:31Z",
+        "stars": 0,
+        "language": "C++"
+      },
       {
         "name": "t-display-1",
         "html_url": "https://github.com/kreier/t-display-1",
@@ -510,14 +518,6 @@
         "updated_at": "2026-11-13T16:33:56Z",
         "stars": 0,
         "language": "Other"
-      },
-      {
-        "name": "todo",
-        "html_url": "https://github.com/kreier/todo",
-        "description": "Organize my life with all the things I need to do - and some calming statistics.",
-        "updated_at": "2026-11-12T11:25:49Z",
-        "stars": 0,
-        "language": "JavaScript"
       }
     ]
   },
