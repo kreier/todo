@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T13:00:56.159748+00:00",
+  "updated_at": "2026-11-25T11:50:33.798930+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -440,6 +440,14 @@
     "followers": 39,
     "recent_active_repos": [
       {
+        "name": "micro-repl",
+        "html_url": "https://github.com/kreier/micro-repl",
+        "description": "A MicroPython IDE for Mobile, Desktop and the Web",
+        "updated_at": "2026-11-24T21:57:31Z",
+        "stars": 0,
+        "language": "Other"
+      },
+      {
         "name": "ps3car",
         "html_url": "https://github.com/kreier/ps3car",
         "description": "Controlling a robot car with a PS3 Dualshock controller.",
@@ -510,14 +518,6 @@
         "updated_at": "2026-11-15T05:34:54Z",
         "stars": 1,
         "language": "TypeScript"
-      },
-      {
-        "name": "esp32-c5",
-        "html_url": "https://github.com/kreier/esp32-c5",
-        "description": "Projects with the dual-band 2.4G and 5G Wifi6 board single core RISC-V ESP32-C5",
-        "updated_at": "2026-11-13T16:33:56Z",
-        "stars": 0,
-        "language": "Other"
       }
     ]
   },
