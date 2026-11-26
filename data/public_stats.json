@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-25T11:50:33.798930+00:00",
+  "updated_at": "2026-11-26T11:39:17.081533+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
     "total_tasks_completed": 2393,
     "average_tasks_per_month": 22.8,
-    "github_public_repos": 223,
+    "github_public_repos": 225,
     "emails_answered_this_month": 58,
     "current_open_emails": 3,
     "active_projects": 6,
@@ -435,10 +435,34 @@
   ],
   "github_stats": {
     "user": "kreier",
-    "public_repos": 223,
-    "total_stars": 65,
+    "public_repos": 225,
+    "total_stars": 5,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "nr3053",
+        "html_url": "https://github.com/kreier/nr3053",
+        "description": "Details about the Vietel SDMC NR3053 Wifi6 router and firmwares like KeeneticOS and OpenWRT.",
+        "updated_at": "2026-11-25T22:29:44Z",
+        "stars": 0,
+        "language": "Other"
+      },
+      {
+        "name": "omnibot",
+        "html_url": "https://github.com/kreier/omnibot",
+        "description": "Software and description of my 3-wheeled omnidirectional robot project. Since 2020.",
+        "updated_at": "2026-11-25T16:23:56Z",
+        "stars": 0,
+        "language": "C++"
+      },
+      {
+        "name": "sre",
+        "html_url": "https://github.com/kreier/sre",
+        "description": "Scaled Resolution Editor (SRE) is a tool for editing the list of GPU-scaled resolutions that are automatically added by the graphics driver. For AMD GPUs, it can also add custom VSR resolutions.",
+        "updated_at": "2026-11-25T16:15:50Z",
+        "stars": 3,
+        "language": "C++"
+      },
       {
         "name": "micro-repl",
         "html_url": "https://github.com/kreier/micro-repl",
@@ -493,30 +517,6 @@
         "description": "Software for the TTGO T18 3.0 20190410, also known as T-Energy.",
         "updated_at": "2026-11-17T13:57:13Z",
         "stars": 0,
-        "language": "TypeScript"
-      },
-      {
-        "name": "benchmark",
-        "html_url": "https://github.com/kreier/benchmark",
-        "description": "Testing the speed of CPU and more on generations of hardware.",
-        "updated_at": "2026-11-17T03:59:39Z",
-        "stars": 62,
-        "language": "C"
-      },
-      {
-        "name": "aisvn-solarpower",
-        "html_url": "https://github.com/kreier/aisvn-solarpower",
-        "description": "Collect data from solar panel and wind generator at AISVN",
-        "updated_at": "2026-11-16T13:06:22Z",
-        "stars": 0,
-        "language": "C++"
-      },
-      {
-        "name": "wifi",
-        "html_url": "https://github.com/kreier/wifi",
-        "description": "Document the wifi situation on-site with a deployed ESP32 to a cloudflare and Github website.",
-        "updated_at": "2026-11-15T05:34:54Z",
-        "stars": 1,
         "language": "TypeScript"
       }
     ]
