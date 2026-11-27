@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-26T11:39:17.081533+00:00",
+  "updated_at": "2026-11-27T11:31:58.646623+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
     "total_tasks_completed": 2393,
     "average_tasks_per_month": 22.8,
-    "github_public_repos": 225,
+    "github_public_repos": 228,
     "emails_answered_this_month": 58,
     "current_open_emails": 3,
     "active_projects": 6,
@@ -435,10 +435,34 @@
   ],
   "github_stats": {
     "user": "kreier",
-    "public_repos": 225,
-    "total_stars": 5,
+    "public_repos": 228,
+    "total_stars": 3,
     "followers": 39,
     "recent_active_repos": [
+      {
+        "name": "H3C_MAGIC_RT3000",
+        "html_url": "https://github.com/kreier/H3C_MAGIC_RT3000",
+        "description": "Updated firmware for the H3C Magic RT3000 HW-B from China Mobile to OpenWRT 21.02.7 QSDK 11.5",
+        "updated_at": "2026-11-27T11:22:44Z",
+        "stars": 0,
+        "language": "Python"
+      },
+      {
+        "name": "mojo-start",
+        "html_url": "https://github.com/kreier/mojo-start",
+        "description": "First programming steps in Mojo.",
+        "updated_at": "2026-11-27T06:19:38Z",
+        "stars": 0,
+        "language": "Mojo"
+      },
+      {
+        "name": "julia-start",
+        "html_url": "https://github.com/kreier/julia-start",
+        "description": "First steps in Julia",
+        "updated_at": "2026-11-27T02:35:40Z",
+        "stars": 0,
+        "language": "Julia"
+      },
       {
         "name": "nr3053",
         "html_url": "https://github.com/kreier/nr3053",
@@ -494,30 +518,6 @@
         "updated_at": "2026-11-23T09:00:02Z",
         "stars": 0,
         "language": "C"
-      },
-      {
-        "name": "esp32-powerconsumption",
-        "html_url": "https://github.com/kreier/esp32-powerconsumption",
-        "description": "Measure and document the power consumption of various ESP32 boards.",
-        "updated_at": "2026-11-20T02:19:27Z",
-        "stars": 0,
-        "language": "C++"
-      },
-      {
-        "name": "solar",
-        "html_url": "https://github.com/kreier/solar",
-        "description": "Visualize solar data from different stations, provide statistical analysis.",
-        "updated_at": "2026-11-17T23:51:47Z",
-        "stars": 2,
-        "language": "TypeScript"
-      },
-      {
-        "name": "T18",
-        "html_url": "https://github.com/kreier/T18",
-        "description": "Software for the TTGO T18 3.0 20190410, also known as T-Energy.",
-        "updated_at": "2026-11-17T13:57:13Z",
-        "stars": 0,
-        "language": "TypeScript"
       }
     ]
   },
