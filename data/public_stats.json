@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T11:31:58.646623+00:00",
+  "updated_at": "2026-11-28T11:00:25.325472+00:00",
   "historical_start_date": "2018-03-07",
   "description": "Public aggregated statistics for kreier.github.io/todo",
   "metrics": {
@@ -440,12 +440,36 @@
     "followers": 39,
     "recent_active_repos": [
       {
+        "name": "nr3053",
+        "html_url": "https://github.com/kreier/nr3053",
+        "description": "Details about the Vietel SDMC NR3053 Wifi6 router and firmwares like KeeneticOS and OpenWRT.",
+        "updated_at": "2026-11-27T17:55:59Z",
+        "stars": 0,
+        "language": "HTML"
+      },
+      {
+        "name": "esp32-c5",
+        "html_url": "https://github.com/kreier/esp32-c5",
+        "description": "Projects with the dual-band 2.4G and 5G Wifi6 board single core RISC-V ESP32-C5",
+        "updated_at": "2026-11-27T16:42:44Z",
+        "stars": 0,
+        "language": "C++"
+      },
+      {
+        "name": "esp32-wifiquality",
+        "html_url": "https://github.com/kreier/esp32-wifiquality",
+        "description": "Monitoring and documenting the wifi quality on several locations with an ESP32.",
+        "updated_at": "2026-11-27T16:15:59Z",
+        "stars": 0,
+        "language": "Mojo"
+      },
+      {
         "name": "H3C_MAGIC_RT3000",
         "html_url": "https://github.com/kreier/H3C_MAGIC_RT3000",
         "description": "Updated firmware for the H3C Magic RT3000 HW-B from China Mobile to OpenWRT 21.02.7 QSDK 11.5",
-        "updated_at": "2026-11-27T11:22:44Z",
+        "updated_at": "2026-11-27T14:52:25Z",
         "stars": 0,
-        "language": "Python"
+        "language": "HTML"
       },
       {
         "name": "mojo-start",
@@ -462,14 +486,6 @@
         "updated_at": "2026-11-27T02:35:40Z",
         "stars": 0,
         "language": "Julia"
-      },
-      {
-        "name": "nr3053",
-        "html_url": "https://github.com/kreier/nr3053",
-        "description": "Details about the Vietel SDMC NR3053 Wifi6 router and firmwares like KeeneticOS and OpenWRT.",
-        "updated_at": "2026-11-25T22:29:44Z",
-        "stars": 0,
-        "language": "Other"
       },
       {
         "name": "omnibot",
@@ -502,22 +518,6 @@
         "updated_at": "2026-11-23T14:50:31Z",
         "stars": 0,
         "language": "C++"
-      },
-      {
-        "name": "t-display-1",
-        "html_url": "https://github.com/kreier/t-display-1",
-        "description": "Tất cả những ứng dụng với t-display",
-        "updated_at": "2026-11-23T10:36:47Z",
-        "stars": 0,
-        "language": "C++"
-      },
-      {
-        "name": "t-display-again",
-        "html_url": "https://github.com/kreier/t-display-again",
-        "description": "Đủ loại ứng dụng cho chiếc T-Display của anh Phú.",
-        "updated_at": "2026-11-23T09:00:02Z",
-        "stars": 0,
-        "language": "C"
       }
     ]
   },
